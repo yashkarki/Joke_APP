@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<script>
+    
+    function getNewJoke() {
+        const heading = document.getElementById("joke");
+        $.ajax({
+            url: '/get_new_joke/',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                document.getElementById("joke").innerText = data.joke;
+                   if (heading.style.display == "none") {
+                    heading.style.display = "block"
+                }
+               
+            },
+            error: function () {
+                console.error('Failed to fetch a new joke.');
+            }
+        });
+     
+    }
+</script>
+
+<body>
+    <h1>Welcome to my Joke Website</h1>
+    <button class="click" onclick="getNewJoke()">Generate New Joke</button>
+
+    <h3 id="joke" style="display: none;">{{ joke }}</h3>
+</body>
+
+</html>
